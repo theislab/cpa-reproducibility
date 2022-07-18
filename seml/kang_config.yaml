@@ -1,0 +1,39 @@
+seml:
+  executable: seml/kang_experiments.py
+  name: kang
+  output_dir: seml/logs
+  project_root_dir: /storage/groups/ml01/workspace/carlo.dedonno/cpa-reproducibility
+  conda_environment: cpa_2
+slurm:
+  experiments_per_job: 1
+  sbatch_options_template: GPU
+  sbatch_options:
+    mem: 50G          # memory
+    cpus-per-task: 6  # num cores
+    time: 1-00:01     # max time, D-HH:MM
+    nice: 10000
+  max_simultaneous_jobs: 6
+
+fixed:
+  save_dir: /storage/groups/ml01/workspace/carlo.dedonno/cpa-reproducibility/sweep_models/kang/
+  max_epochs: 3000
+  max_minutes: 120
+
+grid:
+  loss_ae:
+    type: choice
+    options:
+      - gauss
+  ct:
+    type: choice
+    options:
+      - B
+      - B Activated
+      - CD4 Memory T
+      - CD4 Naive T
+      - CD8 T
+      - CD14 Mono 
+      - CD16 Mono
+      - DC
+      - NK
+      - T activated

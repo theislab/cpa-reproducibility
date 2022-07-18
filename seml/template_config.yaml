@@ -1,0 +1,137 @@
+
+seml:
+  executable: seml/template_script.py
+  name: cpa_hyperparam
+  output_dir: seml/logs
+  project_root_dir: /storage/groups/ml01/workspace/carlo.dedonno/cpa-reproducibility
+  conda_environment: cpa
+slurm:
+  experiments_per_job: 1
+  sbatch_options_template: GPU
+  sbatch_options:
+    mem: 50G          # memory
+    cpus-per-task: 6  # num cores
+    time: 2-00:00     # max time, D-HH:MM
+    nice: 100000
+  max_simultaneous_jobs: 6
+
+###### BEGIN PARAMETER CONFIGURATION ######
+
+fixed:
+  adata_path: /storage/groups/ml01/workspace/carlo.dedonno/cpa-reproducibility/datasets/GSM_new.h5ad
+  max_epochs: 1000
+  max_minutes: 120
+  checkpoint_freq: 100
+  run_eval: True
+  perturbation_key: condition
+  covariate_keys: cell_type #not sure how to specify a list of covs in YAML
+  dose_key: dose_val
+  split_key: split
+  loss_ae: gauss
+  patience: 20
+
+grid:
+  batch_size:
+    type: choice
+    options:
+      - 128
+  step_size_lr:
+    type: choice
+    options:
+      - 45
+  doser_type:
+    type: choice
+    options:
+      - mlp
+      - sigm
+      - logsigm
+  decoder_activation:
+    type: choice
+    options: 
+      - linear
+      - ReLU
+  #AUTOENCODER PARAMS
+  #latent dimension
+  dim:            
+    type: choice
+    options:
+      - 128
+  #width of ae layers
+  autoencoder_width: 
+    type: choice
+    options:
+      - 128
+  #no. of ae layers
+  autoencoder_depth:
+    type: choice
+    options:
+      - 3
+  #learning rate of ae
+  autoencoder_lr: 
+    type: choice
+    options: 
+      - 4e-3
+  #weight decay of ae
+  autoencoder_wd: 
+    type: choice
+    options: 
+      - 4e-7
+
+  #ADVERSARY CLF PARAMS
+  #width of layers
+  adversary_width: 
+    type: choice
+    options:
+      - 64
+  #no. of layers
+  adversary_depth:
+    type: choice
+    options: 
+      - 2
+  #learning rate
+  adversary_lr: 
+    type: choice
+    options: 
+      - 3e-4
+  #weight decay
+  adversary_wd:
+    type: choice
+    options:
+      - 4e-7
+  #how many steps backprop through clfs
+  adversary_steps:
+    type: choice
+    options:
+      - 3
+  #regularization term (it's actually the weight of the adv loss)
+  reg_adversary:
+    type: choice
+    options:
+      - 60
+  #penalty term (every adversary_steps this term is used to penalize the gradients of the classfiers (?))
+  penalty_adversary:
+    type: choice
+    options:
+      - 60
+
+  #DOSERS PARAMS
+  #width of dosers layers
+  dosers_width: 
+    type: choice
+    options:
+      - 128
+  #no. of dosers layers
+  dosers_depth:
+    type: choice
+    options: 
+      - 2
+  #learning rate of dosers
+  dosers_lr: 
+    type: choice
+    options: 
+      - 4e-3
+  #weight decay of dosers
+  dosers_wd:
+    type: choice
+    options:
+      - 1e-7

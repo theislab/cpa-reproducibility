@@ -1,0 +1,21 @@
+seml:
+  executable: seml/norman_train.py
+  name: cpa_hyperparam
+  output_dir: seml/logs
+  project_root_dir: /storage/groups/ml01/workspace/carlo.dedonno/cpa-reproducibility
+  conda_environment: cpa_2
+slurm:
+  experiments_per_job: 1
+  sbatch_options_template: GPU
+  sbatch_options:
+    mem: 50G          # memory
+    cpus-per-task: 6  # num cores
+    time: 1-00:01     # max time, D-HH:MM
+    nice: 1
+  max_simultaneous_jobs: 1
+
+grid:
+  run:
+    type: choice
+    options:
+      - 1

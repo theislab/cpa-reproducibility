@@ -1,0 +1,22 @@
+seml:
+  executable: seml/norman_splits.py
+  name: cpa_norman_splits
+  output_dir: seml/logs
+  project_root_dir: /storage/groups/ml01/workspace/carlo.dedonno/cpa-reproducibility
+  conda_environment: cpa_2
+slurm:
+  experiments_per_job: 1
+  sbatch_options_template: GPU
+  sbatch_options:
+    mem: 50G          # memory
+    cpus-per-task: 6  # num cores
+    time: 1-00:01     # max time, D-HH:MM
+    nice: 1
+  max_simultaneous_jobs: 20
+
+grid:
+  split_key_int:
+    type: uniform
+    min: 1
+    max: 25
+    num: 25
