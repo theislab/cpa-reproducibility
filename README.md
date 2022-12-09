@@ -1,7 +1,7 @@
 # CPA - Compositional Perturbation Autoencoder
 
 `CPA` is a collaborative research project from
-Facebook AI Research (FAIR) and a computatiobal biology group of Prof. Fabian 
+Facebook AI Research (FAIR) and a computational biology group of Prof. Fabian 
 Theis (https://github.com/theislab) from Helmholtz Zentrum München. 
 
 # Reproducibility
